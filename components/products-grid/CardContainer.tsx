@@ -1,16 +1,12 @@
-"use client";
+import { Product } from "@/contexts/ProductsContext";
+import Card from "@/components/products-grid/Card";
 
-import { useProducts } from "@/contexts/ProductsContext";
-import Card from "@/components/cards/Card";
-
-export default function CardContainer() {
-  const { products } = useProducts();
-
+export default function CardContainer({ products }: { products: Product[] }) {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {products.map((product) => (
+      {products.map((product, key) => (
         <div
-          key={product.id}
+          key={key}
           className="rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300 bg-white p-2"
         >
           {/* Product card */}

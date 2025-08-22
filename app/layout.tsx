@@ -4,6 +4,8 @@ import NavBar from "@/components/navbar/Navbar";
 import { ProductsContextProvider } from "@/contexts/ProductsContext";
 import { ReactQueryProvider } from "@/contexts/QueryProvider";
 import { fetchProductsServer } from "@/lib/fetchAllProducts";
+import { AuthContextProvider } from "@/contexts/AuthContext";
+import { AdminContextProvider } from "@/contexts/AdminContext";
 
 export const metadata: Metadata = {
   title: "Fitwear",
@@ -27,12 +29,15 @@ export default async function RootLayout({
       </head>
 
       <body>
-        <ReactQueryProvider>
-          <ProductsContextProvider initialProducts={initialProducts}>
-            <NavBar />
-            {children}
-          </ProductsContextProvider>
-        </ReactQueryProvider>
+        <AuthContextProvider>
+          <ReactQueryProvider>
+            <AdminContextProvider>
+              <ProductsContextProvider initialProducts={initialProducts}>
+                {children}
+              </ProductsContextProvider>
+            </AdminContextProvider>
+          </ReactQueryProvider>
+        </AuthContextProvider>
       </body>
     </html>
   );

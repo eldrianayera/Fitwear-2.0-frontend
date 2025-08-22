@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SearchBar from "./SearchBar";
 
 type NavItem = {
@@ -42,7 +43,8 @@ export default function NavBar() {
       <SearchBar />
 
       <div className="ml-6">
-        <button
+        <Link
+          href="/sign-in"
           className="
               border-2 border-primary px-4 py-1 rounded-md text-primary
               font-semibold hover:bg-primary hover:text-white transition-colors duration-200
@@ -51,7 +53,7 @@ export default function NavBar() {
           aria-label="Log out"
         >
           Admin
-        </button>
+        </Link>
       </div>
     </nav>
   );
