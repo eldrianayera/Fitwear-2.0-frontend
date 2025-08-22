@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-card: var(--card);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-fade-in: fade-in 0.7s ease-out forwards;
+  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
+  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
+  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
+  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: rgb(255, 255, 255);
+    --foreground: rgba(5, 8, 13, 1);
+
+    --card: rgba(11, 16, 26, 1);
+
+    --primary: rgb(124, 199, 19);
+    --secondary: rgba(232, 236, 242, 1);
+
+    --border: rgba(34, 45, 61, 1);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+
+  @media (width >= 640px) {
+    max-width: 640px;
+  }
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@utility poppins {
+  font-family: "Poppins";
+}
+
+@utility page {
+  @apply flex flex-col mt-20;
+}
+
+@utility md-only {
+  @apply max-md:hidden;
+}
+@utility lg-only {
+  @apply max-lg:hidden;
+}
+@utility sm-only {
+  @apply max-sm:hidden;
+}
+
+@utility text-glow {
+  @apply relative z-30;
+  text-shadow: 0 0 5px rgba(152, 205, 0, 0.6), 0 0 10px rgba(152, 205, 0, 0.7),
+    0 0 20px rgba(152, 205, 0, 0.8), 0 0 40px rgba(152, 205, 0, 0.9);
+}
+
+@utility section-header {
+  @apply text-3xl max-sm:text-2xl font-bold;
+}
+
+@utility card-hover {
+  @apply transition-transform duration-300 hover:scale-[1.07] hover:shadow-lg;
+}
+
+@utility primary-button {
+  @apply px-6 py-2 rounded-full bg-primary text-white font-medium
+           transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
+           hover:scale-105 active:scale-95;
+}
+
+@utility container-glow {
+  @apply shadow-[0_0_30px_hsl(var(--primary))];
+}
+
+@utility container-glow-sm {
+  @apply shadow-[0_0_10px_hsl(var(--primary))];
+}
+
+@utility image-container {
+  @apply aspect-square overflow-hidden flex items-center justify-center bg-foreground;
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
