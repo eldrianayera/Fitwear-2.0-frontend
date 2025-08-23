@@ -1,14 +1,24 @@
+import { Session } from "@supabase/supabase-js";
+import Link from "next/link";
+
 interface Props {
   image?: string;
   price: string;
   name: string;
   id: string;
+  isAdmin: Session | null;
 }
 
-export default function ProductsCards({ image, price, name, id }: Props) {
+export default function ProductsCards({
+  image,
+  price,
+  name,
+  id,
+  isAdmin,
+}: Props) {
   return (
-    <a
-      href={`/product-detail/${id}`}
+    <Link
+      href={isAdmin ? `/admin/product-detail/${id}` : `/product-detail/${id}`}
       className="group rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col w-64 bg-white"
     >
       {/* Image container */}
@@ -29,10 +39,8 @@ export default function ProductsCards({ image, price, name, id }: Props) {
         <h3 className="text-lg font-semibold truncate group-hover:text-primary transition-colors duration-200">
           {name}
         </h3>
-        <p className="text-gray-700 font-medium mt-1">
-          ${Number(price).toLocaleString()}
-        </p>
+        <p className="text-gray-700 font-medium mt-1">${Number(price)}</p>
       </div>
-    </a>
+    </Link>
   );
 }

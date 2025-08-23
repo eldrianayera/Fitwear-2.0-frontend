@@ -6,6 +6,7 @@ import { ReactQueryProvider } from "@/contexts/QueryProvider";
 import { fetchProductsServer } from "@/lib/fetchAllProducts";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 import { AdminContextProvider } from "@/contexts/AdminContext";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Fitwear",
@@ -34,6 +35,7 @@ export default async function RootLayout({
             <AdminContextProvider>
               <ProductsContextProvider initialProducts={initialProducts}>
                 {children}
+                <Toaster position="top-center" richColors />
               </ProductsContextProvider>
             </AdminContextProvider>
           </ReactQueryProvider>

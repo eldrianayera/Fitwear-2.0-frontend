@@ -5,21 +5,27 @@ import cn from "../../lib/utils";
 import { Product, useProducts } from "@/contexts/ProductsContext";
 import { useAdmin } from "@/contexts/AdminContext";
 
+interface Props {
+  setIsAdding: React.Dispatch<React.SetStateAction<boolean>>;
+  editableProduct: Product | null;
+  addOrUpdate: "update" | "add";
+}
+
 export default function EditProductWindow({
   setIsAdding,
-}: {
-  setIsAdding: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+  editableProduct,
+  addOrUpdate,
+}: Props) {
   const [formData, setFormData] = useState<Product>({
-    name: "",
-    price: "",
-    image: "",
-    description: "",
-    category: "",
-    id: "",
+    name: editableProduct?.name || "",
+    price: editableProduct?.price || "",
+    image: editableProduct?.image || "",
+    description: editableProduct?.description || "",
+    category: editableProduct?.category || "",
+    id: editableProduct?.id || "",
   });
 
-  const { handleAdd } = useAdmin();
+  const { handleAdd, handleUpdate } = useAdmin();
   const { products } = useProducts();
 
   useEffect(() => {
@@ -41,7 +47,7 @@ export default function EditProductWindow({
     ...new Set(products.map((p) => p.category).filter(Boolean) as string[]),
   ];
 
-  const handleUpdate = (
+  const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
@@ -55,7 +61,13 @@ export default function EditProductWindow({
       alert("Name and Price can't be empty");
       return;
     }
-    handleAdd(formData);
+    if (addOrUpdate === "add") {
+      handleAdd(formData);
+    } else if (addOrUpdate === "update") {
+      handleUpdate(formData);
+    }
+
+    setIsAdding(false);
   };
 
   return (
@@ -64,7 +76,7 @@ export default function EditProductWindow({
         // positioning
         "fixed left-1/2 top-5 -translate-x-1/2 ",
         // appearance
-        "z-50 w-[90%] h-[90%] bg-white rounded-4xl shadow-2xl p-6 flex flex-col justify-between overflow-auto "
+        "w-[90%] h-[90%] bg-white rounded-4xl shadow-2xl p-6 flex flex-col justify-between overflow-auto z-99"
       )}
     >
       {/* Product form fields */}
@@ -80,7 +92,7 @@ export default function EditProductWindow({
               placeholder="Enter product name..."
               className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
               required
-              onChange={handleUpdate}
+              onChange={handleChange}
             />
           </div>
 
@@ -94,7 +106,7 @@ export default function EditProductWindow({
               placeholder="Enter product price..."
               className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
               required
-              onChange={handleUpdate}
+              onChange={handleChange}
             />
           </div>
 
@@ -103,7 +115,7 @@ export default function EditProductWindow({
             <label className="block font-semibold mb-1">Category</label>
             <div className="flex gap-3">
               <select
-                onChange={handleUpdate}
+                onChange={handleChange}
                 name="category"
                 value={formData.category}
                 className="flex-grow p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
@@ -140,7 +152,7 @@ export default function EditProductWindow({
               name="image"
               placeholder="Paste image URL..."
               className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-              onChange={handleUpdate}
+              onChange={handleChange}
             />
           </div>
 
@@ -153,13 +165,13 @@ export default function EditProductWindow({
               placeholder="Enter product description..."
               rows={3}
               className="resize-none w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-              onChange={handleUpdate}
+              onChange={handleChange}
             ></textarea>
           </div>
         </div>
 
         {/* Product Image Preview */}
-        <div className="flex items-center justify-center border rounded-lg overflow-hidden">
+        <div className="h-100 w-120 flex items-center justify-center border rounded-lg overflow-hidden self-center">
           {formData.image ? (
             <img
               src={formData.image}
@@ -182,11 +194,12 @@ export default function EditProductWindow({
         >
           Cancel
         </button>
+
         <button
           onClick={() => handleClickAdd(formData)}
           className="px-5 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors"
         >
-          Add
+          {addOrUpdate === "add" ? "Add" : "Save"}
         </button>
       </div>
     </div>

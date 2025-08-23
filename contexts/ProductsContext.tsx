@@ -16,10 +16,12 @@ export type Product = {
 
 interface ProductsContext {
   products: Product[];
+  isLoading: boolean;
 }
 
 const defaultState: ProductsContext = {
   products: [],
+  isLoading: true,
 };
 
 // Create Context ///////////////////////////////////////
@@ -35,7 +37,7 @@ export const ProductsContextProvider = ({
   children: ReactNode;
   initialProducts: Product[];
 }) => {
-  const { data: products = initialProducts } = useQuery({
+  const { data: products = initialProducts, isLoading } = useQuery({
     queryKey: ["allProducts"],
     queryFn: async () => {
       const { data } = await axiosInstance.get("/products");
@@ -46,7 +48,7 @@ export const ProductsContextProvider = ({
   });
 
   return (
-    <ProductsContext.Provider value={{ products }}>
+    <ProductsContext.Provider value={{ products, isLoading }}>
       {children}
     </ProductsContext.Provider>
   );
