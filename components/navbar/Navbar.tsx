@@ -33,14 +33,14 @@ export default function NavBar() {
       <div className="flex-1 mx-12">
         <div className="flex gap-3 text-foreground md-only">
           {navItems.map((item, key) => (
-            <a key={key} className="hover:text-primary" href={item.href}>
+            <Link key={key} className="hover:text-primary" href={item.href}>
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
 
-      <SearchBar />
+      <SearchBar isAdmin={false} />
 
       <div className="ml-6">
         <Link

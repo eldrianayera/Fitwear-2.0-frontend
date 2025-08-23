@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function About() {
   return (
     <section id="about" className="py-20 bg-gray-50">
@@ -27,9 +29,9 @@ export default function About() {
             and trend‑forward designs — so you can look good and feel great,
             wherever your journey takes you.
           </p>
-          <a href="/#product" className="primary-button w-40 text-center">
+          <Link href="/#product" className="primary-button w-40 text-center">
             Shop Now
-          </a>
+          </Link>
         </div>
       </div>
     </section>
