@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function HeroSection1() {
   return (
     <section
@@ -18,13 +20,13 @@ export default function HeroSection1() {
         Elevate your game with high-performance activewear designed to move with
         you. <br /> Stay comfortable, look sharp, and conquer every workout.
       </p>
-      <a
+      <Link
         href="/#product"
         className="primary-button w-40 text-center z-10 self-start"
         tabIndex={0}
       >
         Shop Now
-      </a>
+      </Link>
     </section>
   );
 }

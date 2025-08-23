@@ -22,13 +22,13 @@ export default function NavBar() {
       "
       role="banner"
     >
-      <a
+      <Link
         href="/"
         className="font-extrabold text-4xl text-primary focus:outline-none focus:ring-2 focus:ring-primary rounded"
         tabIndex={0}
       >
         FitWear
-      </a>
+      </Link>
 
       <div className="flex-1 mx-12">
         <div className="flex gap-3 text-foreground md-only">
