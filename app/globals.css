@@ -1,13 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-border: var(--border);
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-card: var(--card);
+  /* Wise Design System Colors - Tailwind v4 syntax */
+  --color-wise-black: #0e0f0c;
+  --color-wise-green: #9fe870;
+  --color-wise-green-dark: #163300;
+  --color-wise-mint: #e2f6d5;
+  --color-wise-pastel: #cdffad;
+  --color-wise-warm-dark: #454745;
+  --color-wise-gray: #868685;
+  --color-wise-surface: #e8ebe6;
+  --color-wise-white: #ffffff;
 
+  /* Semantic Colors */
+  --color-sentiment-positive: #054d28;
+  --color-interactive-negative: #d03238;
+  --color-sentiment-warning: #ffd11a;
+  --color-background-accent: rgba(56, 200, 255, 0.10);
+  --color-bright-orange: #ffc091;
+
+  /* Legacy mapping for existing code */
+  --color-background: var(--color-wise-white);
+  --color-foreground: var(--color-wise-black);
+  --color-border: rgba(14, 15, 12, 0.12);
+  --color-primary: var(--color-wise-green);
+  --color-secondary: var(--color-wise-surface);
+  --color-card: var(--color-wise-white);
+
+  /* Define colors as Tailwind color palette */
+  --color-background-wise-black: var(--color-wise-black);
+  --color-background-wise-green: var(--color-wise-green);
+  --color-background-wise-green-dark: var(--color-wise-green-dark);
+  --color-background-wise-mint: var(--color-wise-mint);
+  --color-background-wise-warm-dark: var(--color-wise-warm-dark);
+  --color-background-wise-gray: var(--color-wise-gray);
+  --color-background-wise-surface: var(--color-wise-surface);
+  --color-background-wise-white: var(--color-wise-white);
+
+  /* Animation keyframes */
   --animate-fade-in: fade-in 0.7s ease-out forwards;
   --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
   --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
@@ -24,106 +54,415 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes scale-hover {
+    to {
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes scale-active {
+    to {
+      transform: scale(0.95);
+    }
+  }
 }
 
 @layer base {
   :root {
-    --background: rgb(255, 255, 255);
-    --foreground: rgba(5, 8, 13, 1);
-
-    --card: rgba(11, 16, 26, 1);
-
-    --primary: rgb(124, 199, 19);
-    --secondary: rgba(232, 236, 242, 1);
-
-    --border: rgba(34, 45, 61, 1);
+    --background: var(--color-wise-white);
+    --foreground: var(--color-wise-black);
+    --card: var(--color-wise-white);
+    --primary: var(--color-wise-green);
+    --primary-dark: var(--color-wise-green-dark);
+    --secondary: var(--color-wise-surface);
+    --border: rgba(14, 15, 12, 0.12);
+    --muted: var(--color-wise-gray);
   }
 
   * {
-    @apply border-border;
+    border-color: var(--border);
   }
 
   html {
-    @apply scroll-smooth;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: color-duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-@utility container {
+/* Custom CSS Classes (Tailwind v4 compatible) */
+
+/* Typography Utilities */
+.wise-display-mega {
+  font-family: "Wise Sans", "Inter", sans-serif;
+  font-size: 7.88rem;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: normal;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-display-hero {
+  font-family: "Wise Sans", "Inter", sans-serif;
+  font-size: 6rem;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: normal;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-display-section {
+  font-family: "Wise Sans", "Inter", sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: normal;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-display-sub {
+  font-family: "Wise Sans", "Inter", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: normal;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-alt-heading {
+  font-family: "Inter", sans-serif;
+  font-size: 4.88rem;
+  font-weight: 600;
+  line-height: 1.10;
+  letter-spacing: -0.234px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-card-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.62rem;
+  font-weight: 600;
+  line-height: 1.23;
+  letter-spacing: -0.39px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-feature-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.38rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.396px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-body {
+  font-family: "Inter", sans-serif;
+  font-size: 1.13rem;
+  font-weight: 400;
+  line-height: 1.44;
+  letter-spacing: 0.18px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-body-semibold {
+  font-family: "Inter", sans-serif;
+  font-size: 1.13rem;
+  font-weight: 600;
+  line-height: 1.44;
+  letter-spacing: -0.108px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-caption {
+  font-family: "Inter", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.50;
+  letter-spacing: -0.084px;
+  font-feature-settings: "calt" 1;
+}
+
+.wise-small {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.67;
+  letter-spacing: -0.084px;
+  font-feature-settings: "calt" 1;
+}
+
+/* Container */
+.container {
   margin-inline: auto;
   padding-inline: 2rem;
+}
 
-  @media (width >= 640px) {
+@media (width >= 640px) {
+  .container {
     max-width: 640px;
   }
-  @media (width >= 768px) {
+}
+
+@media (width >= 768px) {
+  .container {
     max-width: 768px;
   }
-  @media (width >= 1024px) {
+}
+
+@media (width >= 1024px) {
+  .container {
     max-width: 1024px;
   }
-  @media (width >= 1280px) {
+}
+
+@media (width >= 1280px) {
+  .container {
     max-width: 1280px;
   }
-  @media (width >= 1400px) {
+}
+
+@media (width >= 1400px) {
+  .container {
     max-width: 1400px;
   }
 }
 
-@utility poppins {
-  font-family: "Poppins";
+/* Button Utilities - Wise Style */
+.wise-button-primary {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: transform 0.2s;
+  background-color: var(--color-wise-green);
+  color: var(--color-wise-green-dark);
+  font-family: "Inter", sans-serif;
+  font-size: 1.13rem;
+  line-height: 1.44;
+  letter-spacing: -0.108px;
+  font-feature-settings: "calt" 1;
 }
 
-@utility page {
-  @apply flex flex-col mt-20;
+.wise-button-primary:hover {
+  transform: scale(1.05);
 }
 
-@utility md-only {
-  @apply max-md:hidden;
-}
-@utility lg-only {
-  @apply max-lg:hidden;
-}
-@utility sm-only {
-  @apply max-sm:hidden;
+.wise-button-primary:active {
+  transform: scale(0.95);
 }
 
-@utility text-glow {
-  @apply relative z-30;
-  text-shadow: 0 0 5px rgba(152, 205, 0, 0.6), 0 0 10px rgba(152, 205, 0, 0.7),
-    0 0 20px rgba(152, 205, 0, 0.8), 0 0 40px rgba(152, 205, 0, 0.9);
+.wise-button-secondary {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: transform 0.2s;
+  background-color: rgba(22, 51, 0, 0.08);
+  color: var(--color-wise-black);
+  font-family: "Inter", sans-serif;
+  font-size: 1.13rem;
+  line-height: 1.44;
+  letter-spacing: -0.108px;
+  font-feature-settings: "calt" 1;
 }
 
-@utility section-header {
-  @apply text-3xl max-sm:text-2xl font-bold;
+.wise-button-secondary:hover {
+  transform: scale(1.05);
 }
 
-@utility card-hover {
-  @apply transition-transform duration-300 hover:scale-[1.07] hover:shadow-lg;
+.wise-button-secondary:active {
+  transform: scale(0.95);
 }
 
-@utility primary-button {
-  @apply px-6 py-2 rounded-full bg-primary text-white font-medium
-           transition-all duration-300 hover:shadow-[0_0_10px_rgba(139,92,246,0.5)]
-           hover:scale-105 active:scale-95;
+/* Card Utilities */
+.wise-card {
+  border-radius: 30px;
+  border: 1px solid rgba(14, 15, 12, 0.12);
+  box-shadow: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px;
 }
 
-@utility container-glow {
-  @apply shadow-[0_0_30px_hsl(var(--primary))];
+.wise-card-small {
+  border-radius: 16px;
+  border: 1px solid rgba(14, 15, 12, 0.12);
+  box-shadow: rgba(14, 15, 12, 0.12) 0px 0px 0px 1px;
 }
 
-@utility container-glow-sm {
-  @apply shadow-[0_0_10px_hsl(var(--primary))];
+.wise-card-large {
+  border-radius: 40px;
+  border: 1px solid rgba(14, 15, 12, 0.12);
+  box-shadow: rgba(14, 15, 12, 0px) 0px 0px 0px 1px;
 }
 
-@utility image-container {
-  @apply aspect-square overflow-hidden flex items-center justify-center bg-foreground;
+.wise-card-hover {
+  transition: transform 0.2s;
 }
 
+.wise-card-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Input Utilities */
+.wise-input {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 10px;
+  border: 1px solid;
+  transition: all 0.2s;
+  border-color: rgba(14, 15, 12, 0.12);
+  background-color: var(--color-wise-white);
+  color: var(--color-wise-black);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+}
+
+.wise-input:focus {
+  outline: none;
+  box-shadow: rgb(134, 134, 133) 0px 0px 0px 1px inset;
+}
+
+/* Page Utilities */
+.page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+}
+
+/* Responsive Utilities */
+.md-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .md-only {
+    display: block;
+  }
+}
+
+.lg-only {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .lg-only {
+    display: block;
+  }
+}
+
+.sm-only {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .sm-only {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .sm-only {
+    display: block;
+  }
+}
+
+/* Section Header */
+.section-header {
+  font-family: "Wise Sans", "Inter", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 0.85;
+  color: var(--color-wise-black);
+  font-feature-settings: "calt" 1;
+}
+
+/* Legacy Utilities */
+.poppins {
+  font-family: "Poppins", "Inter", sans-serif;
+}
+
+.text-glow {
+  position: relative;
+  z-index: 30;
+  text-shadow: 0 0 5px rgba(159, 232, 112, 0.6),
+    0 0 10px rgba(159, 232, 112, 0.7),
+    0 0 20px rgba(159, 232, 112, 0.8),
+    0 0 40px rgba(159, 232, 112, 0.9);
+}
+
+.card-hover {
+  transition: transform 0.3s;
+}
+
+.card-hover:hover {
+  transform: scale(1.07);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.primary-button {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: var(--color-wise-green);
+  color: var(--color-wise-green-dark);
+}
+
+.primary-button:hover {
+  transform: scale(1.05);
+}
+
+.primary-button:active {
+  transform: scale(0.95);
+}
+
+.container-glow {
+  box-shadow: 0 0 30px var(--color-wise-green);
+}
+
+.container-glow-sm {
+  box-shadow: 0 0 10px var(--color-wise-green);
+}
+
+.image-container {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Navigation Hover */
+.nav-link-hover {
+  transition: color-duration-200;
+}
+
+.nav-link-hover:hover {
+  background-color: rgba(211, 242, 192, 0.4);
+}
+
+/* Green Tint Background */
+.green-tint {
+  background-color: rgba(211, 242, 192, 0.4);
+}
+
+/* Root */
 #root {
   max-width: 100%;
   margin: 0 auto;

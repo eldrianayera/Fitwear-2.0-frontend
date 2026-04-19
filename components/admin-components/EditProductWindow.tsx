@@ -29,15 +29,12 @@ export default function EditProductWindow({
   const { products } = useProducts();
 
   useEffect(() => {
-    // Lock scroll when modal opens
     document.body.style.overflow = "hidden";
 
-    // Optional: focus the first input
     const firstInput =
       document.querySelector<HTMLInputElement>('input[name="name"]');
     firstInput?.focus();
 
-    // Cleanup on unmount (modal closes)
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -73,24 +70,39 @@ export default function EditProductWindow({
   return (
     <div
       className={cn(
-        // positioning
-        "fixed left-1/2 top-5 -translate-x-1/2 ",
-        // appearance
-        "w-[90%] h-[90%] bg-white rounded-4xl shadow-2xl p-6 flex flex-col justify-between overflow-auto z-99"
+        "fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ",
+        "w-[90%] max-w-4xl max-h-[90vh] overflow-y-auto",
+        "wise-card-large",
+        "bg-wise-white",
+        "p-8 lg:p-10 flex flex-col z-50 shadow-2xl"
       )}
     >
+      {/* Header */}
+      <div className="mb-8 pb-6 border-b border-[rgba(14,15,12,0.08)]">
+        <h2 className="wise-display-sub text-wise-black">
+          {addOrUpdate === "add" ? "Add New Product" : "Edit Product"}
+        </h2>
+        <p className="wise-body text-wise-gray mt-2">
+          {addOrUpdate === "add"
+            ? "Fill in the details to add a new product"
+            : "Update the product information"}
+        </p>
+      </div>
+
       {/* Product form fields */}
-      <div className="grid grid-cols-[3fr_2fr] gap-8">
-        <div className="space-y-5">
+      <div className="grid lg:grid-cols-[3fr_2fr] gap-8">
+        <div className="space-y-6">
           {/* Product Name */}
           <div>
-            <label className="block font-semibold mb-1">Product Name</label>
+            <label className="wise-caption text-wise-gray block mb-2">
+              Product Name <span className="text-[#d03238]">*</span>
+            </label>
             <input
               type="text"
               value={formData.name}
               name="name"
               placeholder="Enter product name..."
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+              className="w-full wise-input"
               required
               onChange={handleChange}
             />
@@ -98,30 +110,41 @@ export default function EditProductWindow({
 
           {/* Price */}
           <div>
-            <label className="block font-semibold mb-1">Price</label>
-            <input
-              type="text"
-              value={formData.price}
-              name="price"
-              placeholder="Enter product price..."
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-              required
-              onChange={handleChange}
-            />
+            <label className="wise-caption text-wise-gray block mb-2">
+              Price <span className="text-[#d03238]">*</span>
+            </label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 wise-body-semibold text-wise-gray">
+                $
+              </span>
+              <input
+                type="number"
+                value={formData.price}
+                name="price"
+                placeholder="0.00"
+                className="w-full wise-input pl-8"
+                required
+                onChange={handleChange}
+                min="0"
+                step="0.01"
+              />
+            </div>
           </div>
 
           {/* Category */}
           <div>
-            <label className="block font-semibold mb-1">Category</label>
+            <label className="wise-caption text-wise-gray block mb-2">
+              Category
+            </label>
             <div className="flex gap-3">
               <select
                 onChange={handleChange}
                 name="category"
                 value={formData.category}
-                className="flex-grow p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                className="flex-grow wise-input"
               >
                 <option value="" disabled>
-                  -- Select category --
+                  Select category...
                 </option>
                 {categories.map((categ, key) => (
                   <option key={key} value={categ}>
@@ -131,8 +154,8 @@ export default function EditProductWindow({
               </select>
               <input
                 type="text"
-                placeholder="New category..."
-                className="p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                placeholder="Or add new..."
+                className="wise-input w-40"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
@@ -145,61 +168,85 @@ export default function EditProductWindow({
 
           {/* Image */}
           <div>
-            <label className="block font-semibold mb-1">Image URL</label>
+            <label className="wise-caption text-wise-gray block mb-2">
+              Image URL
+            </label>
             <input
-              type="text"
+              type="url"
               value={formData.image}
               name="image"
-              placeholder="Paste image URL..."
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+              placeholder="https://example.com/image.jpg"
+              className="w-full wise-input"
               onChange={handleChange}
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block font-semibold mb-1">Description</label>
+            <label className="wise-caption text-wise-gray block mb-2">
+              Description
+            </label>
             <textarea
               value={formData.description}
               name="description"
               placeholder="Enter product description..."
-              rows={3}
-              className="resize-none w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+              rows={4}
+              className="resize-none w-full wise-input"
               onChange={handleChange}
-            ></textarea>
+            />
           </div>
         </div>
 
         {/* Product Image Preview */}
-        <div className="h-100 w-120 flex items-center justify-center border rounded-lg overflow-hidden self-center">
-          {formData.image ? (
-            <img
-              src={formData.image}
-              alt={formData.name}
-              className="object-cover w-full h-full"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-500">
-              No image
-            </div>
-          )}
+        <div className="flex items-center justify-center">
+          <div
+            className="
+              w-full aspect-square
+              wise-card
+              bg-wise-surface
+              overflow-hidden
+              flex items-center justify-center
+            "
+          >
+            {formData.image ? (
+              <img
+                src={formData.image}
+                alt={formData.name || "Product preview"}
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              <div className="text-center p-6">
+                <div className="text-wise-gray text-4xl mb-2">🖼️</div>
+                <p className="wise-caption text-wise-gray">
+                  Image preview
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Action buttons */}
-      <div className="flex justify-end gap-4 mt-6">
+      <div className="flex justify-end gap-4 mt-8 pt-6 border-t border-[rgba(14,15,12,0.08)]">
         <button
           onClick={() => setIsAdding(false)}
-          className="px-5 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors"
+          className="
+            wise-button-secondary
+            px-6 py-2
+          "
         >
           Cancel
         </button>
 
         <button
           onClick={() => handleClickAdd(formData)}
-          className="px-5 py-2 rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors"
+          className="
+            wise-button-primary
+            px-6 py-2
+            focus:outline-none focus:ring-2 focus:ring-wise-green-dark focus:ring-offset-2
+          "
         >
-          {addOrUpdate === "add" ? "Add" : "Save"}
+          {addOrUpdate === "add" ? "Add Product" : "Save Changes"}
         </button>
       </div>
     </div>

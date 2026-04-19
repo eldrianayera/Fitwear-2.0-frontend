@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import EditProductWindow from "@/components/admin-components/EditProductWindow";
 import LogOutButton from "@/components/admin-components/LogOutButton";
 import LoadingPage from "@/components/index-static/LoadingPage";
-import SearchBar from "@/components/navbar/SearchBar";
 
 export default function AdminMain() {
   const [isAdding, setIsAdding] = useState<boolean>(false);
@@ -16,7 +15,7 @@ export default function AdminMain() {
 
   useEffect(() => {
     if (!loading && !session) {
-      router.replace("/"); //
+      router.replace("/");
     }
   }, [loading, session, router]);
 
@@ -24,10 +23,11 @@ export default function AdminMain() {
 
   return (
     <div className="page">
+      {/* Add Product Modal */}
       {isAdding && (
         <>
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+            className="fixed inset-0 bg-wise-black/40 backdrop-blur-sm z-40"
             onClick={() => setIsAdding(false)}
           />
           <EditProductWindow
@@ -38,20 +38,45 @@ export default function AdminMain() {
         </>
       )}
 
-      <div className="w-90 absolute top-2 left-1/2 -translate-x-1/2 z-30">
-        <SearchBar isAdmin={false} />
+      {/* Page Header */}
+      <div className="px-6 lg:px-12 py-8">
+        <div className="max-w-6xl mx-auto">
+          <h1
+            className="
+              wise-display-section text-wise-black
+              max-sm:text-[3rem] sm:text-[4rem]
+              leading-[0.85] mb-6
+            "
+          >
+            Product <span className="text-wise-green">Manager</span>
+          </h1>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+            <p className="wise-body text-wise-warm-dark max-w-md">
+              Manage your product catalog. Add, edit, or remove products as
+              needed.
+            </p>
+
+            <button
+              onClick={() => setIsAdding(true)}
+              className="
+                wise-button-primary
+                focus:outline-none focus:ring-2 focus:ring-wise-green-dark focus:ring-offset-2
+                flex items-center gap-2
+              "
+            >
+              <span className="text-lg">+</span>
+              <span>Add Product</span>
+            </button>
+          </div>
+        </div>
       </div>
 
-      <LogOutButton />
-      <div className="flex justify-center my-6">
-        <button
-          onClick={() => setIsAdding(true)}
-          className="px-5 py-2 rounded-lg bg-primary text-white font-semibold shadow-sm hover:shadow-md hover:bg-primary/10 hover:text-primary transition-all duration-200"
-        >
-          ➕ Add a New Product
-        </button>
-      </div>
+      {/* Products Grid */}
       <ProductsGrid />
+
+      {/* Log Out Button */}
+      <LogOutButton />
     </div>
   );
 }

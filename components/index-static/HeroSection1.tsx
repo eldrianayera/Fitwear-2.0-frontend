@@ -4,29 +4,56 @@ export default function HeroSection1() {
   return (
     <section
       id="hero"
-      className="scroll-mt-30 h-120 flex flex-col justify-center bg-cover px-20 gap-6 text-white relative"
-      style={{
-        backgroundImage: "url('homebg2.png')",
-      }}
+      className="
+        scroll-mt-30 min-h-[600px] lg:min-h-[700px]
+        flex flex-col justify-center
+        bg-wise-white px-6 lg:px-12 xl:px-20
+        relative overflow-hidden
+      "
       aria-label="Hero section with call to action"
     >
-      {/* Optional overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
+      {/* Background pattern - subtle green tint */}
+      <div className="absolute inset-0 bg-gradient-to-br from-wise-white via-[rgba(211,242,192,0.15)] to-wise-white pointer-events-none"></div>
 
-      <h1 className="text-6xl font-bold poppins z-10">
-        Gear Up. Push Harder. <br /> Perform Better.
-      </h1>
-      <p className="text-gray-200 max-w-xl z-10 md-only">
-        Elevate your game with high-performance activewear designed to move with
-        you. <br /> Stay comfortable, look sharp, and conquer every workout.
-      </p>
-      <Link
-        href="/#product"
-        className="primary-button w-40 text-center z-10 self-start"
-        tabIndex={0}
-      >
-        Shop Now
-      </Link>
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto w-full">
+        <h1
+          className="
+            wise-display-hero text-wise-black
+            max-sm:text-[3.5rem] sm:text-[5rem] lg:text-[6rem]
+            leading-[0.85]
+            mb-8
+          "
+        >
+          Gear Up. <br />
+          Push Harder. <br />
+          <span className="text-wise-green">Perform Better.</span>
+        </h1>
+
+        <p
+          className="
+            wise-body text-wise-warm-dark max-w-xl mb-10
+            max-lg:hidden
+          "
+        >
+          Elevate your game with high-performance activewear designed to move
+          with you. Stay comfortable, look sharp, and conquer every workout.
+        </p>
+
+        <Link
+          href="/#product"
+          className="
+            wise-button-primary inline-block
+            focus:outline-none focus:ring-2 focus:ring-wise-green-dark focus:ring-offset-2
+          "
+          tabIndex={0}
+        >
+          Shop Now
+        </Link>
+      </div>
+
+      {/* Decorative green accent */}
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-wise-green/10 rounded-full blur-3xl pointer-events-none"></div>
     </section>
   );
 }

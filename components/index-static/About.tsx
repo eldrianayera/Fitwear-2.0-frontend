@@ -2,35 +2,52 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">
+    <section id="about" className="py-20 lg:py-32 bg-wise-white">
+      <div className="max-w-6xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         {/* Left: Image */}
-        <div>
-          <img
-            src="about.png"
-            alt="About Us"
-            className="rounded-2xl shadow-lg"
-          />
+        <div className="order-2 lg:order-1">
+          <div className="wise-card p-3">
+            <img
+              src="about.png"
+              alt="About Us"
+              className="rounded-2xl w-full h-auto"
+            />
+          </div>
         </div>
 
         {/* Right: Text */}
-        <div>
-          <h2 className="text-4xl font-bold poppins text-foreground mb-6">
-            About <span className="text-primary">FitWear</span>
+        <div className="order-1 lg:order-2">
+          <h2
+            className="
+              wise-display-section text-wise-black
+              max-sm:text-[3rem] sm:text-[4rem]
+              leading-[0.85] mb-8
+            "
+          >
+            About <span className="text-wise-green">FitWear</span>
           </h2>
-          <p className="text-gray-600 mb-4 leading-relaxed">
+
+          <p className="wise-body text-wise-warm-dark mb-6">
             At FitWear, we believe that great performance starts with the right
             apparel. Our mission is to design high‑quality, stylish, and
             functional activewear that empowers you to move freely and push your
             limits.
           </p>
-          <p className="text-gray-600 mb-6 leading-relaxed">
+
+          <p className="wise-body text-wise-warm-dark mb-10">
             From the gym to the streets, our gear blends comfort, durability,
             and trend‑forward designs — so you can look good and feel great,
             wherever your journey takes you.
           </p>
-          <Link href="/#product" className="primary-button w-40 text-center">
-            Shop Now
+
+          <Link
+            href="/#product"
+            className="
+              wise-button-primary inline-block
+              focus:outline-none focus:ring-2 focus:ring-wise-green-dark focus:ring-offset-2
+            "
+          >
+            Explore Collection
           </Link>
         </div>
       </div>

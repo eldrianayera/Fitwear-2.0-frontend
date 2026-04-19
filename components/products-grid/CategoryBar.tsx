@@ -1,11 +1,11 @@
-"use-client";
+"use client";
 
 import cn from "@/lib/utils";
 import { useProducts } from "@/contexts/ProductsContext";
 
 interface CategoryBarProps {
-  activeCateg: string; // currently selected category
-  setActiveCateg: React.Dispatch<React.SetStateAction<string>>; // state updater
+  activeCateg: string;
+  setActiveCateg: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function CategoryBar({
@@ -23,7 +23,7 @@ export default function CategoryBar({
 
   return (
     <div
-      className="flex justify-center gap-4 flex-wrap scroll-mt-30 py-6 px-9"
+      className="flex justify-center gap-3 flex-wrap scroll-mt-30 py-8 px-6"
       id="product"
     >
       {categories.map((categ, key) => (
@@ -31,10 +31,10 @@ export default function CategoryBar({
           key={key}
           onClick={() => setActiveCateg(categ)}
           className={cn(
-            "px-6 py-2 rounded-full border-2 font-semibold transition-all duration-300 ease-in-out shadow-sm hover:shadow-md",
+            "wise-button-secondary transition-all duration-200",
             categ === activeCateg
-              ? "bg-primary text-white border-primary scale-105"
-              : "bg-white text-gray-700 border-gray-300 hover:bg-primary/10"
+              ? "bg-wise-green text-wise-green-dark"
+              : "bg-[rgba(22,51,0,0.08)] text-wise-black hover:bg-[rgba(22,51,0,0.15)]"
           )}
         >
           {categ}

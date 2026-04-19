@@ -1,25 +1,66 @@
 export default function HeroSection2() {
   return (
     <section
-      id="hero"
+      id="hero-2"
       className="
-        relative border-2 text-right scroll-mt-30 h-120 overflow-hidden flex justify-end items-center
-        before:content-[''] before:absolute before:inset-0
-        before:bg-[url('/runner.png')] before:bg-[50%_100%] before:bg-cover
-        before:scale-x-[-1] before:z-0 before:pointer-events-none
+        relative min-h-[500px] lg:min-h-[600px]
+        overflow-hidden flex items-center
+        bg-wise-white
       "
       aria-label="Hero section with background image and call to action"
     >
-      <div className="relative z-10  px-20 flex flex-col justify-center max-w-lg">
-        <h1 className="text-6xl font-bold poppins text-primary leading-tight">
-          Train Strong.
-        </h1>
-        <p className="text-background mt-4 text-lg leading-relaxed">
-          Unlock your full potential with apparel built for performance and
-          style.
-          <br /> Stay light, stay powerful, and own every moment.
-        </p>
+      {/* Background image with overlay */}
+      <div className="absolute inset-0 bg-wise-surface">
+        <div
+          className="
+            absolute inset-0
+            bg-[url('/runner.png')]
+            bg-[50%_100%] bg-cover
+            scale-x-[-1]
+            opacity-20
+          "
+        ></div>
       </div>
+
+      {/* Content */}
+      <div className="relative z-10 px-6 lg:px-12 xl:px-20 py-16 lg:py-24 w-full">
+        <div className="max-w-2xl">
+          <h2
+            className="
+              wise-display-section text-wise-black
+              max-sm:text-[3rem] sm:text-[4rem]
+              leading-[0.85] mb-6
+            "
+          >
+            Train <span className="text-wise-green">Strong.</span>
+          </h2>
+
+          <p className="wise-body text-wise-warm-dark max-w-lg mb-8">
+            Unlock your full potential with apparel built for performance and
+            style. Stay light, stay powerful, and own every moment.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-wise-green"></div>
+              <span className="wise-body-semibold text-wise-black">
+                Performance
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-wise-green"></div>
+              <span className="wise-body-semibold text-wise-black">Comfort</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-wise-green"></div>
+              <span className="wise-body-semibold text-wise-black">Style</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative green accent */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-wise-green/5 rounded-full blur-3xl pointer-events-none"></div>
     </section>
   );
 }

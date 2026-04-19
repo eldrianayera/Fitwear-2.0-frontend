@@ -3,7 +3,6 @@
 import { useAdmin } from "@/contexts/AdminContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Product, useProducts } from "@/contexts/ProductsContext";
-import cn from "@/lib/utils";
 import { Home } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -39,11 +38,11 @@ function SingleProductDetail() {
   ) => {
     const { name, value } = e.target;
     setEditableProduct((prev) => {
-      if (!prev) return prev; // stays null
+      if (!prev) return prev;
       return {
         ...prev,
         [name]: value,
-      } as Product; // force TS to see it as complete
+      } as Product;
     });
   };
 
@@ -58,22 +57,35 @@ function SingleProductDetail() {
   };
 
   if (!selectedProduct) return;
+
   return (
-    <div className="max-w-6xl mx-auto border-4 rounded-lg overflow-hidden bg-white shadow-lg m-10 ">
+    <div
+      className="
+        max-w-5xl mx-auto my-12
+        wise-card-large
+        bg-wise-white
+        overflow-hidden
+      "
+    >
+      {/* Delete Confirmation Modal */}
       {isDeleting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          {/* backdrop */}
           <div
             onClick={() => setIsDeleting(false)}
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            className="absolute inset-0 bg-wise-black/50 backdrop-blur-sm"
           />
-
-          {/* modal */}
-          <div className="relative z-50 w-[90%] max-w-md bg-white rounded-2xl shadow-2xl p-8 flex flex-col gap-6">
-            <p className="text-center text-lg font-semibold">
+          <div
+            className="
+              relative z-50 w-[90%] max-w-md
+              wise-card-large
+              bg-wise-white
+              p-10 flex flex-col gap-6
+            "
+          >
+            <p className="wise-body-semibold text-wise-black text-center">
               Are you sure you want to delete{" "}
-              <span className="font-bold">
-                &apos;{selectedProduct.name}&apos;
+              <span className="font-bold text-wise-green">
+                '{selectedProduct.name}'
               </span>{" "}
               product?
             </p>
@@ -81,14 +93,24 @@ function SingleProductDetail() {
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setIsDeleting(false)}
-                className="border-2 border-gray-300 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-100 transition-colors"
+                className="
+                  wise-button-secondary
+                  px-6 py-2
+                "
               >
                 Cancel
               </button>
 
               <button
                 onClick={() => handleClickDelete(id)}
-                className="border-2 border-red-500 text-red-500 px-6 py-2 rounded-md hover:bg-red-500 hover:text-white transition-colors"
+                className="
+                  px-6 py-2
+                  rounded-full font-semibold
+                  border-2 border-[#d03238]
+                  text-[#d03238]
+                  hover:bg-[#d03238] hover:text-white
+                  transition-all duration-200
+                "
               >
                 Delete
               </button>
@@ -97,26 +119,33 @@ function SingleProductDetail() {
         </div>
       )}
 
-      <div className="p-4 border-b bg-white ">
+      {/* Header with Back Button */}
+      <div className="p-6 border-b border-[rgba(14,15,12,0.08)] bg-wise-white">
         <Link
           href={isAdmin ? "/admin" : "/#product"}
           className="
-      inline-block
-      border-2 border-primary
-      text-primary font-semibold
-      px-4 py-1 rounded-md
-      hover:bg-primary hover:text-white
-      transition-colors duration-200
-      focus:outline-none focus:ring-2 focus:ring-primary
-    "
+            inline-flex items-center gap-2
+            wise-button-secondary
+            px-4 py-2
+          "
         >
-          <Home />
+          <Home size={18} />
+          <span>Back</span>
         </Link>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-10 p-10">
+      {/* Product Details */}
+      <div className="flex flex-col lg:flex-row gap-10 p-8 lg:p-12">
         {/* Image Container */}
-        <div className="flex-shrink-0 w-full md:w-96 h-72 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+        <div
+          className="
+            flex-shrink-0 w-full lg:w-[400px]
+            bg-wise-surface
+            rounded-2xl
+            overflow-hidden
+            flex items-center justify-center
+          "
+        >
           {editableProduct?.image ? (
             <img
               src={editableProduct?.image}
@@ -124,66 +153,144 @@ function SingleProductDetail() {
               className="object-cover w-full h-full"
             />
           ) : (
-            <div className="text-gray-400 text-sm">No image</div>
+            <div className="text-wise-gray wise-caption">No image</div>
           )}
         </div>
 
         {/* Details Form */}
         <div className="flex flex-col flex-grow gap-6">
-          <input
-            className="text-4xl font-bold border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary rounded-sm p-1"
-            value={editableProduct?.name ?? ""}
-            name="name"
-            onChange={canEdit ? handleChange : undefined}
-            readOnly={!canEdit}
-          />
-
-          <div className="flex items-center gap-2">
-            <label className="text-4xl font-bold select-none" htmlFor="price">
-              Rp
+          {/* Product Name */}
+          <div>
+            <label
+              htmlFor="name"
+              className="wise-caption text-wise-gray block mb-2"
+            >
+              Product Name
             </label>
             <input
-              id="price"
-              className="text-4xl font-bold border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary rounded-sm p-1 flex-grow"
-              value={editableProduct?.price ?? ""}
-              name="price"
-              readOnly={!canEdit}
+              className="
+                w-full
+                wise-display-sub text-wise-black
+                border-b-2 border-[rgba(14,15,12,0.12)]
+                focus:outline-none focus:border-wise-green
+                p-2 bg-transparent
+                transition-colors duration-200
+              "
+              value={editableProduct?.name ?? ""}
+              name="name"
               onChange={canEdit ? handleChange : undefined}
-              type="number"
-              min="0"
+              readOnly={!canEdit}
+              style={{ lineHeight: "1.2" }}
             />
           </div>
 
-          <input
-            className="text-sm text-gray-600 border-b border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary rounded-sm p-1"
-            value={editableProduct?.category ?? ""}
-            name="category"
-            readOnly={!canEdit}
-            onChange={canEdit ? handleChange : undefined}
-          />
+          {/* Price */}
+          <div className="flex items-center gap-3">
+            <label
+              htmlFor="price"
+              className="
+                wise-display-sub text-wise-green
+                select-none
+              "
+              style={{ lineHeight: "1.2" }}
+            >
+              $
+            </label>
+            <div className="flex-grow">
+              <input
+                id="price"
+                className="
+                  w-full
+                  wise-display-sub text-wise-black
+                  border-b-2 border-[rgba(14,15,12,0.12)]
+                  focus:outline-none focus:border-wise-green
+                  p-2 bg-transparent
+                  transition-colors duration-200
+                "
+                value={editableProduct?.price ?? ""}
+                name="price"
+                readOnly={!canEdit}
+                onChange={canEdit ? handleChange : undefined}
+                type="number"
+                min="0"
+                step="0.01"
+                style={{ lineHeight: "1.2" }}
+              />
+            </div>
+          </div>
 
-          <textarea
-            value={editableProduct?.description ?? ""}
-            name="description"
-            className="resize-none border border-gray-300 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-primary min-h-[80px]"
-            readOnly={!canEdit}
-            onChange={canEdit ? handleChange : undefined}
-          />
+          {/* Category */}
+          <div>
+            <label
+              htmlFor="category"
+              className="wise-caption text-wise-gray block mb-2"
+            >
+              Category
+            </label>
+            <input
+              className="
+                w-full
+                wise-body text-wise-black
+                border-b border-[rgba(14,15,12,0.12)]
+                focus:outline-none focus:border-wise-green
+                p-2 bg-transparent
+                transition-colors duration-200
+              "
+              value={editableProduct?.category ?? ""}
+              name="category"
+              readOnly={!canEdit}
+              onChange={canEdit ? handleChange : undefined}
+            />
+          </div>
 
+          {/* Description */}
+          <div>
+            <label
+              htmlFor="description"
+              className="wise-caption text-wise-gray block mb-2"
+            >
+              Description
+            </label>
+            <textarea
+              value={editableProduct?.description ?? ""}
+              name="description"
+              className="
+                w-full
+                wise-body text-wise-black
+                wise-input
+                resize-none
+                min-h-[120px]
+              "
+              readOnly={!canEdit}
+              onChange={canEdit ? handleChange : undefined}
+            />
+          </div>
+
+          {/* Admin Actions */}
           {isAdmin && (
             <div className="self-end flex gap-4 mt-4">
               {isEditing ? (
                 <>
                   <button
                     onClick={() => setIsEditing(false)}
-                    className="border-2 border-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-500 hover:text-white transition-colors"
+                    className="
+                      px-6 py-2
+                      rounded-full font-semibold
+                      border-2 border-[#d03238]
+                      text-[#d03238]
+                      hover:bg-[#d03238] hover:text-white
+                      transition-all duration-200
+                    "
                   >
                     Cancel
                   </button>
 
                   <button
                     onClick={handleClickSave}
-                    className="border-2 border-primary text-primary px-4 py-1 rounded-md hover:bg-primary hover:text-white transition-colors"
+                    className="
+                      wise-button-primary
+                      px-6 py-2
+                    "
                   >
                     Save
                   </button>
@@ -192,13 +299,23 @@ function SingleProductDetail() {
                 <>
                   <button
                     onClick={() => setIsDeleting(true)}
-                    className="border-2 border-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-500 hover:text-white transition-colors"
+                    className="
+                      px-6 py-2
+                      rounded-full font-semibold
+                      border-2 border-[#d03238]
+                      text-[#d03238]
+                      hover:bg-[#d03238] hover:text-white
+                      transition-all duration-200
+                    "
                   >
                     Delete
                   </button>
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="border-2 border-primary text-primary px-4 py-1 rounded-md hover:bg-primary hover:text-white transition-colors"
+                    className="
+                      wise-button-primary
+                      px-6 py-2
+                    "
                   >
                     Edit
                   </button>

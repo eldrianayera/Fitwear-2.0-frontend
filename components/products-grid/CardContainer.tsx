@@ -1,4 +1,5 @@
 "use client";
+
 import { useAuth } from "@/contexts/AuthContext";
 import { Product } from "@/contexts/ProductsContext";
 import Card from "@/components/products-grid/Card";
@@ -19,11 +20,16 @@ export default function CardContainer({ products }: { products: Product[] }) {
   };
 
   return (
-    <div className="flex flex-wrap gap-4 justify-center">
+    <div className="flex flex-wrap gap-6 justify-center px-6 pb-12">
       {products.map((product, key) => (
         <div
           key={key}
-          className="rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-shadow duration-300 bg-white p-2"
+          className="
+            wise-card-small
+            bg-wise-white
+            p-2
+            transition-all duration-200
+          "
         >
           {/* Product card */}
           <Card
@@ -36,18 +42,30 @@ export default function CardContainer({ products }: { products: Product[] }) {
 
           {/* Admin action buttons */}
           {isAdmin && (
-            <div className="mt-3 flex gap-3 justify-center">
+            <div className="mt-3 flex gap-2 justify-center">
               <button
                 onClick={() => handleEdit(product)}
-                className="px-3 py-1 text-sm font-semibold rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-200"
+                className="
+                  wise-button-secondary
+                  px-3 py-1 wise-caption
+                  text-wise-black
+                  hover:bg-wise-mint
+                "
               >
-                ✏️ Edit
+                Edit
               </button>
               <button
                 onClick={() => handleDelete(product.id)}
-                className="px-3 py-1 text-sm font-semibold rounded-lg border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-200"
+                className="
+                  px-3 py-1 wise-caption
+                  rounded-full font-semibold
+                  border-2 border-[#d03238]
+                  text-[#d03238]
+                  hover:bg-[#d03238] hover:text-white
+                  transition-all duration-200
+                "
               >
-                🗑️ Delete
+                Delete
               </button>
             </div>
           )}
