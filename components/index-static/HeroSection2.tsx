@@ -5,23 +5,18 @@ export default function HeroSection2() {
       className="
         relative min-h-[500px] lg:min-h-[600px]
         overflow-hidden flex items-center
-        bg-wise-white
+        bg-wise-surface
       "
-      aria-label="Hero section with background image and call to action"
+      aria-label="Hero section with call to action"
+      style={{
+        backgroundImage: `
+          linear-gradient(135deg, transparent 48%, rgba(159, 232, 112, 0.15) 48%, rgba(159, 232, 112, 0.15) 52%, transparent 52%),
+          linear-gradient(135deg, transparent 48%, rgba(159, 232, 112, 0.08) 48%, rgba(159, 232, 112, 0.08) 52%, transparent 52%)
+        `,
+        backgroundSize: '80px 80px, 120px 120px',
+        backgroundPosition: '0 0, 40px 40px',
+      }}
     >
-      {/* Background image with overlay */}
-      <div className="absolute inset-0 bg-wise-surface">
-        <div
-          className="
-            absolute inset-0
-            bg-[url('/runner.png')]
-            bg-[50%_100%] bg-cover
-            scale-x-[-1]
-            opacity-20
-          "
-        ></div>
-      </div>
-
       {/* Content */}
       <div className="relative z-10 px-6 lg:px-12 xl:px-20 py-16 lg:py-24 w-full">
         <div className="max-w-2xl">
@@ -60,7 +55,8 @@ export default function HeroSection2() {
       </div>
 
       {/* Decorative green accent */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-wise-green/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-wise-green/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-wise-green/5 rounded-full blur-2xl pointer-events-none"></div>
     </section>
   );
 }
