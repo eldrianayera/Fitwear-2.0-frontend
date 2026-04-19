@@ -15,7 +15,7 @@ export default function Contact() {
           </h2>
           <p className="wise-body text-wise-warm-dark max-w-2xl mx-auto">
             Have questions about our products, your order, or wholesale
-            opportunities? We're here to help.
+            opportunities? We&apos;re here to help.
           </p>
         </div>
 

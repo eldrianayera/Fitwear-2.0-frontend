@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -7,11 +8,15 @@ export default function About() {
         {/* Left: Image */}
         <div className="order-2 lg:order-1">
           <div className="wise-card p-3">
-            <img
-              src="about.png"
-              alt="About Us"
-              className="rounded-2xl w-full h-auto"
-            />
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-wise-surface">
+              <Image
+                src="/about.png"
+                alt="About Us"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </div>
 

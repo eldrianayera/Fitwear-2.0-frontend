@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import cn from "../../lib/utils";
 import { Product, useProducts } from "@/contexts/ProductsContext";
 import { useAdmin } from "@/contexts/AdminContext";
+import Image from "next/image";
 
 interface Props {
   setIsAdding: React.Dispatch<React.SetStateAction<boolean>>;
@@ -206,13 +207,16 @@ export default function EditProductWindow({
               bg-wise-surface
               overflow-hidden
               flex items-center justify-center
+              relative
             "
           >
             {formData.image ? (
-              <img
+              <Image
                 src={formData.image}
                 alt={formData.name || "Product preview"}
-                className="object-cover w-full h-full"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
             ) : (
               <div className="text-center p-6">
