@@ -1,5 +1,6 @@
 import { Session } from "@supabase/supabase-js";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Props {
   image?: string;
@@ -33,10 +34,12 @@ export default function ProductsCards({
       {/* Image container */}
       <div className="relative w-full aspect-[4/3] bg-wise-surface flex items-center justify-center overflow-hidden">
         {image ? (
-          <img
+          <Image
             src={image}
             alt={name}
-            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="text-wise-gray wise-caption">No image</div>

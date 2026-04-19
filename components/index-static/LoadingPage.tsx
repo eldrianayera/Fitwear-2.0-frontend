@@ -21,7 +21,7 @@ export default function LoadingPage() {
           Loading, please wait...
         </h2>
         <p className="wise-body text-wise-gray">
-          We're preparing your experience
+          We&apos;re preparing your experience
         </p>
       </div>
     </div>

@@ -5,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Product, useProducts } from "@/contexts/ProductsContext";
 import { Home } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -85,7 +86,7 @@ function SingleProductDetail() {
             <p className="wise-body-semibold text-wise-black text-center">
               Are you sure you want to delete{" "}
               <span className="font-bold text-wise-green">
-                '{selectedProduct.name}'
+                &apos;{selectedProduct.name}&apos;
               </span>{" "}
               product?
             </p>
@@ -144,13 +145,16 @@ function SingleProductDetail() {
             rounded-2xl
             overflow-hidden
             flex items-center justify-center
+            relative
           "
         >
           {editableProduct?.image ? (
-            <img
+            <Image
               src={editableProduct?.image}
               alt={editableProduct?.name}
-              className="object-cover w-full h-full"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 400px"
             />
           ) : (
             <div className="text-wise-gray wise-caption">No image</div>

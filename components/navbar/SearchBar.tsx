@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
 import { Product, useProducts } from "@/contexts/ProductsContext";
 import { Search } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 export default function SearchBar({ isAdmin }: Props) {
   const [search, setSearch] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const { products, isLoading } = useProducts();
+  const { products } = useProducts();
 
   useEffect(() => {
     if (!search) {
@@ -75,12 +75,14 @@ export default function SearchBar({ isAdmin }: Props) {
                 border-b border-[rgba(14,15,12,0.08)] last:border-0
               "
             >
-              <div className="w-10 h-10 rounded-lg overflow-hidden bg-wise-surface flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg overflow-hidden bg-wise-surface flex-shrink-0 relative">
                 {product.image ? (
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="40px"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-wise-gray">

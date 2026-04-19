@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function useToast() {
+export function useToast() {
   const [message, setMessage] = useState<string | null>(null);
 
   const showToast = (msg: string, duration = 2000) => {
